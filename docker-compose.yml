@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  database:
+    image: mysql:lts
+    container_name: database_calatog
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: catalog
+    ports:
+      - "3306:3306"
+    networks:
+      - catalog_microservices_network
+
+
+
+networks:
+  catalog_microservices_network:
+    driver: bridge
