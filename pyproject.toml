@@ -10,6 +10,10 @@ python = "^3.12"
 flask = "^3.0.3"
 flask-cors = "^4.0.1"
 pylint = "^3.2.2"
+sqlalchemy = "^2.0.30"
+pymysql = "^1.1.1"
+pytest = "^8.2.2"
+python-dotenv = "^1.0.1"
 
 
 [build-system]
