@@ -2,6 +2,8 @@
 
 disable=
       C0114 # missing-module-docstring
+      CO115 # missing-module-docstring
+      RO903 # https://pylint.readthedocs.io/en/latest/user_guide/messages/warning/pointless-string-statement.html
 
 # A comma-separated list of package or module names from where C extensions may
 # be loaded. Extensions are loading into the active Python interpreter and may
