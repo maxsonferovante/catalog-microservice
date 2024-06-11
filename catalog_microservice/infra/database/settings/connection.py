@@ -1,7 +1,7 @@
 # This file contains the class that will handle the connection to the database
 from sqlalchemy import create_engine
 from sqlalchemy.engine.base import Engine
-
+from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 import os
 
@@ -22,7 +22,7 @@ class DBConnectionHandler:
             os.environ["DB_NAME"]
         )
         self.__engine = self.__create_engine()
-        
+        self.session = None
         
     def __create_engine(self) -> Engine:
         return create_engine(self.__connection_string)
@@ -30,4 +30,12 @@ class DBConnectionHandler:
     def get_engine(self) -> Engine:
         return self.__engine 
     
+    def __enter__(self):
+        session_make = sessionmaker(bind=self.__engine)
+        self.session = session_make()
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.session.close()
+        self.session = None
     
