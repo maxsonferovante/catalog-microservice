@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-# from catalog_microservice.domain.models.product import Products
+from catalog_microservice.domain.models.products import Products
 
 class ProductRepositoryInterface(ABC):
     @abstractmethod
@@ -9,5 +9,5 @@ class ProductRepositoryInterface(ABC):
         raise NotImplementedError
     
     @abstractmethod
-    def select_product(self, product_id: int):
+    def select_product(self, product_id: int) -> List[Products]:
         raise NotImplementedError    
