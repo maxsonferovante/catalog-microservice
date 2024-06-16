@@ -71,7 +71,7 @@ def test_select_product():
         category_id=mocked_first_product["category_id"]
     )
     
-    product = products_repository.select_product(name=mocked_first_product["name"])
+    product = products_repository.select_product(product_id=1)
     
     assert product[0].name == mocked_first_product["name"]
     assert product[0].description == mocked_first_product["description"]
