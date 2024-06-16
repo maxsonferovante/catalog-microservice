@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy import text
 from catalog_microservice.infra.database.settings.connection import DBConnectionHandler
-from products_repository import ProductsRepository
+from products_repository import ProductRepository
 
 db_connection_handler = DBConnectionHandler()
 connection = db_connection_handler.get_engine().connect()
@@ -16,7 +16,7 @@ def test_insert_product():
         "category_id": 1
     }
     
-    products_repository = ProductsRepository()
+    products_repository = ProductRepository()
     products_repository.insert_product(
         name=mocked_first_product["name"],
         description=mocked_first_product["description"],
@@ -54,3 +54,35 @@ def test_insert_product():
     connection.close()
     
    
+@pytest.mark.skip(reason="Sensive test")
+def test_select_product():
+    mocked_first_product = {
+        "name": "Product 1",
+        "description": "Description of product 1",
+        "price": 10.0,
+        "category_id": 1
+    }
+    
+    products_repository = ProductRepository()
+    products_repository.insert_product(
+        name=mocked_first_product["name"],
+        description=mocked_first_product["description"],
+        price=mocked_first_product["price"],
+        category_id=mocked_first_product["category_id"]
+    )
+    
+    product = products_repository.select_product(name=mocked_first_product["name"])
+    
+    assert product[0].name == mocked_first_product["name"]
+    assert product[0].description == mocked_first_product["description"]
+    assert product[0].price == mocked_first_product["price"]
+    
+    connection.execute(
+        text(
+            f'''
+            DELETE FROM products WHERE id = {product[0].id}
+            '''
+        )
+    )
+    connection.commit()
+    connection.close()
