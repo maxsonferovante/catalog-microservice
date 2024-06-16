@@ -3,11 +3,11 @@ from typing import List
 from catalog_microservice.infra.database.settings.connection import DBConnectionHandler
 from catalog_microservice.infra.database.entities.products import Products as ProductsEntity
 from catalog_microservice.domain.interfaces.product_repository_interface import ProductRepositoryInterface
-# from catalog_microservice.domain.models.product import Products
+from catalog_microservice.domain.models.products import Products
 
 
 
-class ProductRepository():
+class ProductRepository(ProductRepositoryInterface):
     
     @classmethod
     def insert_product(cls, name: str, description: str, price: float, category_id: int) -> None:
@@ -21,7 +21,7 @@ class ProductRepository():
                 raise e
         
     @classmethod
-    def select_product(cls, name: str):
+    def select_product(cls, name: str) -> List[Products]:
         with DBConnectionHandler() as db_connection:
             try:
                 products = (
