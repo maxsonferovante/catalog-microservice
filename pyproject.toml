@@ -14,6 +14,7 @@ sqlalchemy = "^2.0.30"
 pymysql = "^1.1.1"
 pytest = "^8.2.2"
 python-dotenv = "^1.0.1"
+cryptography = "^42.0.8"
 
 
 [build-system]
