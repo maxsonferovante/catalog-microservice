@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime
 from catalog_microservice.infra.database.settings.base import Base
 
-class Category(Base):
+class Categorys(Base):
     __tablename__ = 'categories'
     id = Column(Integer, primary_key=True,autoincrement=True, index=True)
     name = Column(String, index=True)

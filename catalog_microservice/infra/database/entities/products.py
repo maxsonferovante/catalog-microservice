@@ -5,10 +5,10 @@ from sqlalchemy import Column, Integer, DateTime, Numeric, String
 from catalog_microservice.infra.database.settings.base import Base
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.orm import relationship
-from catalog_microservice.infra.database.entities.category import Category
+from catalog_microservice.infra.database.entities.categorys import Categorys
 
 
-class Product(Base):
+class Products(Base):
     __tablename__ = 'products'
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
