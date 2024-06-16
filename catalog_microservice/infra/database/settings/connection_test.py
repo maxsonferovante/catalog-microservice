@@ -1,7 +1,7 @@
 import pytest
 from connection import DBConnectionHandler
 
-@pytest.mark.skip(reason="Sensitive data")
+@pytest.mark.skip(reason="Sensive test")
 def test_create_database_engine():
     # Arrange
     db_connection_handler = DBConnectionHandler()
