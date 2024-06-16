@@ -2,7 +2,7 @@ from typing import List
 
 from catalog_microservice.infra.database.settings.connection import DBConnectionHandler
 from catalog_microservice.infra.database.entities.products import Products as ProductsEntity
-from catalog_microservice.domain.interfaces.product_repository_interface import ProductRepositoryInterface
+from catalog_microservice.data.interfaces.product_repository_interface import ProductRepositoryInterface
 from catalog_microservice.domain.models.products import Products
 
 
@@ -21,7 +21,7 @@ class ProductRepository(ProductRepositoryInterface):
                 raise e
         
     @classmethod
-    def select_product(cls, name: str) -> List[Products]:
+    def select_product(cls,  product_id: int) -> List[Products]:
         with DBConnectionHandler() as db_connection:
             try:
                 products = (
