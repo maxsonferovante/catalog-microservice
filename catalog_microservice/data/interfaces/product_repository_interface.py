@@ -10,4 +10,4 @@ class ProductRepositoryInterface(ABC):
     
     @abstractmethod
     def select_product(self, product_id: int) -> List[Products]:
-        raise NotImplementedError    
+        raise NotImplementedError     
