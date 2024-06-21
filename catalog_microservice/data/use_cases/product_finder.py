@@ -9,6 +9,7 @@ class ProductFinder(ProductFinderInterface):
         self.product_repository = product_repository
 
     def find(self, product_id: int) -> Dict:
+        product_id = int(product_id)
         self.__validate_product_id(product_id)
         products = self.__search_product(product_id)
         return self.__format_response(products)
