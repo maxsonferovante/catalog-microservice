@@ -27,7 +27,7 @@ class ProductRepository(ProductRepositoryInterface):
                 products = (
                     db_connection.session
                     .query(ProductsEntity)
-                    .filter(ProductEntity.name == name)
+                    .filter(ProductsEntity.id == product_id)
                     .all()
                 )
                 return products
