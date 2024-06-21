@@ -17,6 +17,8 @@ python-dotenv = "^1.0.1"
 cryptography = "^42.0.8"
 
 
+[tool.poetry.group.docs.dependencies]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
