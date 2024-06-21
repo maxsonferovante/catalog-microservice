@@ -40,6 +40,6 @@ class ProductFinder(ProductFinderInterface):
         response = {
             'type': 'Products',
             'count': products.__len__(),
-            'atributes': products
+            'atributes': attributes
         }
         return response
