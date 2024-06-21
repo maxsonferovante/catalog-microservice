@@ -5,7 +5,7 @@ from catalog_microservice.presentation.controller.product_register_controller im
 def product_register_composer():
     
     repository = ProductRepository()
-    register_use_case = ProductRegisterUseCase(repository)
+    use_case = ProductRegisterUseCase(repository)
     controller = ProductRegisterController(use_case)
     
     return controller.handle
