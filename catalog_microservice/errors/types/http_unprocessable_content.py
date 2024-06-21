@@ -1,6 +1,6 @@
 
 
-class HttpUnprocessableContentError(HttpError):
+class HttpUnprocessableContentError(Exception):
     def __init__(self, message: str = 'Unprocessable Content'):
         super().__init__(message)
         self.message = message
