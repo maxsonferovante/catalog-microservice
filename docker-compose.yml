@@ -1,6 +1,17 @@
-version: '3.9'
+version: '3'
 
 services:
+  api-ms:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: catalog-api-ms
+    ports:
+      - "5000:5000"
+    networks:
+      - catalog_microservices_network
+    depends_on:
+      - database
   database:
     image: mysql:lts
     container_name: database_calatog
