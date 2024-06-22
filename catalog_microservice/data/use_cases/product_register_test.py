@@ -1,8 +1,6 @@
 from catalog_microservice.infra.database.tests.products_repository import ProductRepositorySpy
 from catalog_microservice.data.use_cases.product_register import ProductRegister
 
-from catalog_microservice.infra.database.repositories.products_repository import ProductRepository
-
 def test_register_product():
     product_repository = ProductRepositorySpy()
     product_register = ProductRegister(product_repository)
