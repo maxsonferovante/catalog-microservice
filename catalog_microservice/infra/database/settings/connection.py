@@ -5,6 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 import os
 
+from catalog_microservice.infra.database.settings.base import Base
 load_dotenv()
 
 """
@@ -23,6 +24,8 @@ class DBConnectionHandler:
         )
         self.__engine = self.__create_engine()
         self.session = None
+        
+        Base.metadata.create_all(self.__engine)
         
     def __create_engine(self) -> Engine:
         return create_engine(self.__connection_string)
