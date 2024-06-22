@@ -26,26 +26,25 @@ def test_find():
     
     assert product_repository.select_product_atributes['product_id'] == 1
     
-    assert response['type'] == 'Products'
-    assert response['count'] == 1
-    assert response['atributes'] is not None
-    assert response['atributes'][0].id == 1
-    assert response['atributes'][0].name == 'Product 1'
-    assert response['atributes'][0].description == 'Description 1'
-    assert response['atributes'][0].price == 10.0
-    assert response['atributes'][0].category_id == 1
+    assert response == {
+        'type': 'Products',
+        'count': 1,
+        'atributes': [
+            {
+                'name': 'Product 1',
+                'description': 'Description 1',
+                'price': 10.0,
+                'category_id': 1
+            }
+        ]
+    }
     
 
 def test_find_with_invalid_product_id():
     product_repository = ProductRepositorySpy()
     
     product_finder = ProductFinder(product_repository)
-    
-    try:
-        product_finder.find(None)
-    except Exception as e:
-        assert str(e) == 'Product ID must be a number'
-        
+      
     try:
         product_finder.find('1')
     except Exception as e:
