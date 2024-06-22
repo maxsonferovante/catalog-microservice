@@ -6,6 +6,8 @@ from catalog_microservice.domain.models.products import Products
 
 from catalog_microservice.errors.types.http_unprocessable_content import HttpUnprocessableContentError
 
+from catalog_microservice.infra.database.errors.types.category_not_found_error import CategoryNotFoundError
+
 class ProductRegister(ProductRegisterInterface):
     def __init__(self, product_repository: ProductRepositoryInterface):
         self.product_repository = product_repository
@@ -30,12 +32,18 @@ class ProductRegister(ProductRegisterInterface):
             raise HttpUnprocessableContentError("Category_id must be a integer")
         
     def __create_product(self, name: str, description: str, price: float, category_id: int) -> Products:
-        self.product_repository.insert_product(
-            name=name,
-            description=description,
-            price=price,
-            category_id=category_id
-        )
+        try:
+        
+            self.product_repository.insert_product(
+                name=name,
+                description=description,
+                price=price,
+                category_id=category_id
+            )
+        except CategoryNotFoundError as e:
+            raise HttpUnprocessableContentError(str(e))
+        except Exception as e:
+            raise e
     
     @classmethod    
     def __format_response(self, name: str, description: str, price: float, category_id: int ) -> Dict:

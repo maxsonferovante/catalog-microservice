@@ -2,10 +2,13 @@ from typing import List
 
 from catalog_microservice.infra.database.settings.connection import DBConnectionHandler
 from catalog_microservice.infra.database.entities.products import Products as ProductsEntity
+from catalog_microservice.infra.database.entities.categorys import Categorys as CategoriesEntity
 from catalog_microservice.data.interfaces.product_repository_interface import ProductRepositoryInterface
+
 from catalog_microservice.domain.models.products import Products
 
 
+from catalog_microservice.infra.database.errors.types.category_not_found_error import CategoryNotFoundError
 
 class ProductRepository(ProductRepositoryInterface):
     
@@ -13,9 +16,15 @@ class ProductRepository(ProductRepositoryInterface):
     def insert_product(cls, name: str, description: str, price: float, category_id: int) -> None:
         with DBConnectionHandler() as db_connection:
             try:
-                new_product = ProductsEntity(name=name, description=description, price=price, category_id=category_id)
+                
+                category_exists  = db_connection.session.query(CategoriesEntity).filter(CategoriesEntity.id == category_id).first()
+                if not category_exists:
+                    raise CategoryNotFoundError(category_id=category_id)
+                                
+                new_product = ProductsEntity(name=name, description=description, price=price, category_id=category_id)    
                 db_connection.session.add(new_product)
                 db_connection.session.commit()
+                
             except Exception as e:
                 db_connection.session.rollback()
                 raise e
