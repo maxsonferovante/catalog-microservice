@@ -86,3 +86,13 @@ def test_select_product():
     )
     connection.commit()
     connection.close()
+    
+@pytest.mark.skip(reason="Sensive test")
+def test_select_products():
+    products_repository = ProductRepository()
+    products = products_repository.select_products()
+    
+    assert len(products) == 0
+    assert products == []
+    
+    connection.close()

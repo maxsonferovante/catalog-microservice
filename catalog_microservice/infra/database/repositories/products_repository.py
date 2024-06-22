@@ -34,3 +34,19 @@ class ProductRepository(ProductRepositoryInterface):
             except Exception as e:
                 db_connection.session.rollback()
                 raise e
+    
+    @classmethod
+    def select_products(cls) -> List[Products]:
+        with DBConnectionHandler() as db_connection:
+            try:
+                products = (
+                    db_connection.session
+                    .query(ProductsEntity)
+                    .order_by(ProductsEntity.created_at.desc())
+                    .all()
+                    
+                )
+                return products
+            except Exception as e:
+                db_connection.session.rollback()
+                raise e

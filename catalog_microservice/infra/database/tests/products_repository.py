@@ -24,3 +24,21 @@ class ProductRepositorySpy:
             price=10.0,
             category_id=1
         )]
+
+    def select_products(self) -> List[Products]:
+        return [
+            Products(
+                id=1,
+                name='Product 1',
+                description='Description 1',
+                price=10.0,
+                category_id=1
+            ),
+            Products(
+                id=2,
+                name='Product 2',
+                description='Description 2',
+                price=20.0,
+                category_id=2
+            )
+        ]
