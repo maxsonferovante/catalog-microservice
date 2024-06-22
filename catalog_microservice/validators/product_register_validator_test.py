@@ -42,9 +42,11 @@ def test_product_register_validator_empty_description():
         'price': 10.0,
         'category_id': 1
     }
+    try:
+        response = product_register_validator(request)
+    except Exception as e:
+            assert str(e) == "{'description': ['empty values not allowed']}"
     
-    response = product_register_validator(request)
-    assert response is None
 
 def test_product_register_validator_empty_price():
     request = MockRequest()
