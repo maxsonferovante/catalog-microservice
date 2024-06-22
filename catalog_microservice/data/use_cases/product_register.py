@@ -7,6 +7,7 @@ from catalog_microservice.domain.models.products import Products
 from catalog_microservice.errors.types.http_unprocessable_content import HttpUnprocessableContentError
 
 from catalog_microservice.infra.database.errors.types.category_not_found_error import CategoryNotFoundError
+from catalog_microservice.infra.database.errors.types.database_error import DatabaseError
 
 class ProductRegister(ProductRegisterInterface):
     def __init__(self, product_repository: ProductRepositoryInterface):
@@ -42,6 +43,8 @@ class ProductRegister(ProductRegisterInterface):
             )
         except CategoryNotFoundError as e:
             raise HttpUnprocessableContentError(str(e))
+        except DatabaseError as e:
+            raise HttpUnprocessableContentError('An error occurred while processing your request: { }; Please try again later.'.format(str(e)))
         except Exception as e:
             raise e
     

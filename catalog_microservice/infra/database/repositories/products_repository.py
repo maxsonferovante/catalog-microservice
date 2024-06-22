@@ -9,7 +9,7 @@ from catalog_microservice.domain.models.products import Products
 
 
 from catalog_microservice.infra.database.errors.types.category_not_found_error import CategoryNotFoundError
-
+from catalog_microservice.infra.database.errors.types.database_error import DatabaseError
 class ProductRepository(ProductRepositoryInterface):
     
     @classmethod
@@ -25,9 +25,15 @@ class ProductRepository(ProductRepositoryInterface):
                 db_connection.session.add(new_product)
                 db_connection.session.commit()
                 
-            except Exception as e:
+            except CategoryNotFoundError as e:
                 db_connection.session.rollback()
                 raise e
+            except IntegrityError as e:
+                db_connection.session.rollback()
+                raise DatabaseError('Database integrity error occurred.')
+            except Exception as e:
+                db_connection.session.rollback()
+                raise DatabaseError('An unexpected error occurred: {}'.format(e))
         
     @classmethod
     def select_product(cls,  product_id: int) -> List[Products]:
