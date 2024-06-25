@@ -2,7 +2,7 @@ from typing import List
 
 from catalog_microservice.infra.utils.generate_uuid import generate_uuid
 from catalog_microservice.infra.database.settings.connection import DBConnectionHandler
-from catalog_microservice.infra.database.entities.categorys import Categorys as CategoriesEntity
+from catalog_microservice.infra.database.entities.categorys import Categories as CategoriesEntity
 from catalog_microservice.data.interfaces.category_repository_interface import CategoryRepositoryInterface
 
 from catalog_microservice.domain.models.categories import Categories

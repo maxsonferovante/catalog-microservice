@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from catalog_microservice.infra.database.settings.base import Base
 
-class Categorys(Base):
+class Categories(Base):
     __tablename__ = 'categories'
     id: Mapped[str] = mapped_column(String(225),primary_key=True)
     

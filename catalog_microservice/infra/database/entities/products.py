@@ -5,7 +5,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 
 from catalog_microservice.infra.database.settings.base import Base
-from catalog_microservice.infra.database.entities.categorys import Categorys
+from catalog_microservice.infra.database.entities.categorys import Categories
 
 class Products(Base):
       __tablename__ = 'products'
@@ -21,7 +21,7 @@ class Products(Base):
       created_at = Column(DateTime, autoincrement=True, default=datetime.now)
       updated_at = Column(DateTime, autoincrement=True, default=datetime.now, onupdate=datetime.now)
 
-      category = relationship("Categorys", back_populates="products")
+      category = relationship("Categories", back_populates="products")
 
       def __repr__(self):
           return f'Product(id={self.id}, name={self.name}, description={self.description}'
