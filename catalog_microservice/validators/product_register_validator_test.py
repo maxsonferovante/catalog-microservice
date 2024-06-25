@@ -1,4 +1,5 @@
 from catalog_microservice.validators.product_register_validator import product_register_validator
+from catalog_microservice.infra.utils.generate_uuid import generate_uuid
 
 
 
@@ -13,7 +14,7 @@ def test_product_register_validator():
         'name': 'product test',
         'description': 'description test',
         'price': 10.0,
-        'category_id': 1
+        'category_id': generate_uuid()
     }
     
     response = product_register_validator(request)
@@ -25,7 +26,7 @@ def test_product_register_validator_empty_name():
         'name': '',
         'description': 'description test',
         'price': 10.0,
-        'category_id': 1
+        'category_id': generate_uuid()
     }
     
     try:
@@ -40,7 +41,7 @@ def test_product_register_validator_empty_description():
         'name': 'product test',
         'description': '',
         'price': 10.0,
-        'category_id': 1
+        'category_id': generate_uuid()
     }
     try:
         response = product_register_validator(request)
@@ -54,7 +55,7 @@ def test_product_register_validator_empty_price():
         'name': 'product test',
         'description': 'description test',
         'price': '',
-        'category_id': 1
+        'category_id': generate_uuid()
     }
     
     try:
@@ -74,5 +75,5 @@ def test_product_register_validator_empty_category_id():
     try:
         product_register_validator(request)
     except Exception as e:
-         assert str(e) == "{'category_id': ['must be of integer type']}"
+         assert str(e) == "{'category_id': ['empty values not allowed']}"
          
