@@ -5,11 +5,11 @@ from catalog_microservice.domain.models.products import Products
 
 class ProductRepositoryInterface(ABC):
     @abstractmethod
-    def insert_product(self, name: str, description: str, price: float, category_id: int) -> None:
+    def insert_product(self, name: str, description: str, price: float, category_id: str) -> str:
         raise NotImplementedError
     
     @abstractmethod
-    def select_product(self, product_id: int) -> List[Products]:
+    def select_product(self, product_id: str) -> List[Products]:
         raise NotImplementedError     
     
     @abstractmethod

@@ -5,7 +5,7 @@ class ProductRegisterSpy:
     def __init__(self) -> None:
         self.register_attributes = {}
 
-    def register(self, name: str, description: str, price: float, category_id: int) -> Dict:
+    def register(self, name: str, description: str, price: float, category_id: str) -> Dict:
                 
         self.register_attributes[name] = {
             'name': name,

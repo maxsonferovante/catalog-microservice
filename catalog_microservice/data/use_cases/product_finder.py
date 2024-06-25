@@ -13,20 +13,17 @@ class ProductFinder(ProductFinderInterface):
     def __init__(self, product_repository: ProductRepositoryInterface):
         self.product_repository = product_repository
 
-    def find(self, product_id: int) -> Dict:
-        product_id = int(product_id)
+    def find(self, product_id: str) -> Dict:
         self.__validate_product_id(product_id)
         products = self.__search_product(product_id)
         return self.__format_response(products)
     
     @classmethod
-    def __validate_product_id(cls, product_id: int) -> None:
-        if not product_id or type(product_id) != int:
-            raise HttpBadRequestError("Product ID must be a number")
-        if product_id < 0:
-            raise HttpBadRequestError("Product ID must be a positive number")
+    def __validate_product_id(cls, product_id: str) -> None:
+        if not product_id or type(product_id) != str:
+            raise HttpBadRequestError("Product ID must be a UUID string")
         
-    def __search_product(self, product_id: int) -> List[Products]:
+    def __search_product(self, product_id: str) -> List[Products]:
         
         products = self.product_repository.select_product(product_id)                  
         print (products)

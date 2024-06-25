@@ -13,32 +13,40 @@ class ProductRegister(ProductRegisterInterface):
     def __init__(self, product_repository: ProductRepositoryInterface):
         self.product_repository = product_repository
 
-    def register(self, name: str, description: str, price: float, category_id: int) -> Dict:
+    def register(self, name: str, description: str, price: float, category_id: str) -> Dict:
         
         self.__validate_product(name, description, price, category_id)
         
-        self.__create_product(name, description, price, category_id)      
+        product_result = self.__create_product(name, description, price, category_id)      
         
-        return self.__format_response(name, description, price, category_id)
+        return self.__format_response(product_result)
     
     @classmethod
-    def __validate_product(cls, name: str, description: str, price: float, category_id: int) -> Exception:
+    def __validate_product(cls, name: str, description: str, price: float, category_id: str) -> Exception:
         if not name or type(name) != str:
             raise HttpUnprocessableContentError("Name must be a string")
         if not description or type(description) != str:
             raise HttpUnprocessableContentError("Description must be a string")
         if not price or type(price) != float:
             raise HttpUnprocessableContentError("Price must be a float")
-        if not category_id or type(category_id) != int:
-            raise HttpUnprocessableContentError("Category_id must be a integer")
+        if not category_id or type(category_id) != str:
+            raise HttpUnprocessableContentError("Category_id must be a UUID string")
         
-    def __create_product(self, name: str, description: str, price: float, category_id: int) -> Products:
+    def __create_product(self, name: str, description: str, price: float, category_id: str) -> Products:
         try:
         
-            self.product_repository.insert_product(
+            product_id_result = self.product_repository.insert_product(
                 name=name,
                 description=description,
                 price=price,
+                category_id=category_id
+            )
+            
+            return Products(
+                id=product_id_result,
+                name=name,
+                price=price,
+                description=description,
                 category_id=category_id
             )
         except CategoryNotFoundError as e:
@@ -49,15 +57,16 @@ class ProductRegister(ProductRegisterInterface):
             raise e
     
     @classmethod    
-    def __format_response(self, name: str, description: str, price: float, category_id: int ) -> Dict:
+    def __format_response(self, product: Products) -> Dict:
         response = {
             'type': 'Products',
             'count': 1,
             'atributes': {
-                'name': name,
-                'description': description,
-                'price': price,
-                'category_id': category_id
+                'id': product.id,
+                'name': product.name,
+                'description': product.description,
+                'price': product.price,
+                'category_id': product.category_id
             }
         }
         return response

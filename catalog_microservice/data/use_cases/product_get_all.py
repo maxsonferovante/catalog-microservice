@@ -19,7 +19,11 @@ class ProductGetAll(ProductGetAllInterface):
             'name': product.name,
             'description': product.description,
             'price': product.price,
-            'category_id': product.category_id
+            'category': {
+                'id': product.category.id,
+                'name': product.category.name,
+                'description': product.category.description
+            }
             }, products))
 
       

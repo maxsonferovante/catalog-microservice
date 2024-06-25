@@ -4,7 +4,7 @@ class ProductFinderSpy:
     def __init__(self) -> None:
         self.find_attributes = {}
 
-    def find(self, product_id: int) -> Dict:
+    def find(self, product_id: str) -> Dict:
         self.find_attributes['product_id'] = product_id
         return {
             'type': 'Products',
