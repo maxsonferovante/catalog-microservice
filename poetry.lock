@@ -206,6 +206,20 @@ files = [
 python-dateutil = ">=2.4"
 
 [[package]]
+name = "faker-commerce"
+version = "1.0.4"
+description = "Provider for Faker which adds fake commerce product names, prices, categories and descriptions."
+optional = false
+python-versions = "*"
+files = [
+    {file = "faker-commerce-1.0.4.tar.gz", hash = "sha256:f53da04143ab70754493fa97c0c64f5208c8f8f3c50273516ee3cafcea372953"},
+    {file = "faker_commerce-1.0.4-py3-none-any.whl", hash = "sha256:6780fe30801aac399a64d421cd85c4593f7cd54d838cb400e8d31e463722622c"},
+]
+
+[package.dependencies]
+faker = "*"
+
+[[package]]
 name = "flask"
 version = "3.0.3"
 description = "A simple framework for building complex web applications."
@@ -725,4 +739,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "cc53e1ec637214fa2a1ccd288cc00aa4e01b5ab5e5213e9a3b4159ea4a611290"
+content-hash = "77136451842c10f7a855fe9b1b782d898efd8921ccd2b740c29363102bb1ec46"
