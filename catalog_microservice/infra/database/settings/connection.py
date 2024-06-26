@@ -3,12 +3,14 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.engine.base import Engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.schema import MetaData
 from catalog_microservice.infra.database.settings.base import Base
-
-
+from dotenv import load_dotenv  
 """
     A class that handles the database connection settings.
 """
+load_dotenv()
+
 class DBConnectionHandler:  
 
     def __init__(self) -> None:
@@ -22,7 +24,6 @@ class DBConnectionHandler:
         )
         self.__engine = self.__create_engine()
         self.session = None
-        
         Base.metadata.create_all(self.__engine)
         
     def __create_engine(self) -> Engine:
