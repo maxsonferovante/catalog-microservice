@@ -1,6 +1,7 @@
 from catalog_microservice.infra.database.tests.products_repository import ProductRepositorySpy
 from catalog_microservice.data.use_cases.product_finder import ProductFinder
 from catalog_microservice.infra.utils.generate_uuid import generate_uuid
+
 def test_find_with_product_not_found():
     product_repository = ProductRepositorySpy()
     
@@ -35,6 +36,7 @@ def test_find():
                 'name': 'Product 1',
                 'description': 'Description 1',
                 'price': 10.0,
+                'stock': 10,
                 'category_id': 1
             }
         ]

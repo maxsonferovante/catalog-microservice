@@ -13,6 +13,7 @@ def test_register_product():
         name='product',
         description='description',
         price=10.0,
+        stock=10,
         category_id= category_id_generete
     )
     assert response['type'] == 'Products'
@@ -20,6 +21,7 @@ def test_register_product():
     assert response['atributes']['name'] == 'product'
     assert response['atributes']['description'] == 'description'
     assert response['atributes']['price'] == 10.0
+    assert response['atributes']['stock'] == 10
     assert response['atributes']['category_id'] == category_id_generete
     
 def test_register_product_with_invalid_name():
@@ -30,6 +32,7 @@ def test_register_product_with_invalid_name():
             name=None,
             description='description',
             price=10.0,
+            stock=10,
             category_id=category_id_generete
         )
     except Exception as e:
@@ -40,6 +43,7 @@ def test_register_product_with_invalid_name():
             name=1,
             description='description',
             price=10.0,
+            stock=10,
             category_id=category_id_generete
         )
     except Exception as e:
@@ -53,6 +57,7 @@ def test_register_product_with_invalid_description():
             name='product',
             description=None,
             price=10.0,
+            stock=10,
             category_id=category_id_generete
         )
     except Exception as e:
@@ -63,6 +68,7 @@ def test_register_product_with_invalid_description():
             name='product',
             description=1,
             price=10.0,
+            stock=10,
             category_id=category_id_generete
         )
     except Exception as e:
@@ -76,6 +82,7 @@ def test_register_product_with_invalid_price():
             name='product',
             description='description',
             price=None,
+            stock=10,
             category_id=category_id_generete
         )
     except Exception as e:
@@ -86,6 +93,7 @@ def test_register_product_with_invalid_price():
             name='product',
             description='description',
             price='10.0',
+            stock=10,
             category_id=category_id_generete
         )
     except Exception as e:
@@ -99,6 +107,7 @@ def test_register_product_with_invalid_category_id():
             name='product',
             description='description',
             price=10.0,
+            stock=10,
             category_id=None
         )
     except Exception as e:
@@ -109,11 +118,49 @@ def test_register_product_with_invalid_category_id():
             name='product',
             description='description',
             price=10.0,
+            stock=10,
             category_id='1'
         )
     except Exception as e:
         assert str(e) == 'Category_id must be a UUID string'
 
+def test_register_product_with_invalid_stock():
+    product_repository = ProductRepositorySpy()
+    product_register = ProductRegister(product_repository)
+    try:
+        product_register.register(
+            name='product',
+            description='description',
+            price=10.0,
+            stock=None,
+            category_id=category_id_generete
+        )
+    except Exception as e:
+        assert str(e) == 'Stock must be a integer greater than 0'
+        
+    try:
+        product_register.register(
+            name='product',
+            description='description',
+            price=10.0,
+            stock='10',
+            category_id=category_id_generete
+        )
+    except Exception as e:
+        assert str(e) == 'Stock must be a integer greater than 0'
+        
+    try:
+        product_register.register(
+            name='product',
+            description='description',
+            price=10.0,
+            stock=0,
+            category_id=category_id_generete
+        )
+    except Exception as e:
+        assert str(e) == 'Stock must be a integer greater than 0'
+        
+        
 def test_register_product_with_invalid_product_repository():
     try:
         ProductRegister(None)

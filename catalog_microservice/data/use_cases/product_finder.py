@@ -39,6 +39,7 @@ class ProductFinder(ProductFinderInterface):
                 'name': product.name,
                 'description': product.description,
                 'price': product.price,
+                'stock': product.stock,
                 'category_id': product.category_id
             })
         response = {

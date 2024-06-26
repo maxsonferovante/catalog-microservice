@@ -18,6 +18,7 @@ class ProductGetAll(ProductGetAllInterface):
             'id': product.id,
             'name': product.name,
             'description': product.description,
+            'stock': product.stock,
             'price': product.price,
             'category': {
                 'id': product.category.id,
