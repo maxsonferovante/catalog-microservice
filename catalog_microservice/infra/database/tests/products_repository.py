@@ -8,10 +8,11 @@ class ProductRepositorySpy:
         self.insert_product_atributes = {}
         self.select_product_atributes = {}
 
-    def insert_product(self, name: str, description: str, price: float, category_id: str) -> None:
+    def insert_product(self, name: str, description: str, price: float, stock: int, category_id: str) -> None:
         self.insert_product_atributes['name'] = name
         self.insert_product_atributes['description'] = description
         self.insert_product_atributes['price'] = price
+        self.insert_product_atributes['stock'] = stock
         self.insert_product_atributes['category_id'] = category_id
         return
 
@@ -22,6 +23,7 @@ class ProductRepositorySpy:
             name='Product 1',
             description='Description 1',
             price=10.0,
+            stock=10,
             category_id=1
         )
         product.category = Categories(
@@ -37,6 +39,7 @@ class ProductRepositorySpy:
             name='Product 1',
             description='Description 1',
             price=10.0,
+            stock=10,
             category_id=1
         )
         product1.category = Categories(
@@ -50,6 +53,7 @@ class ProductRepositorySpy:
             name='Product 2',
             description='Description 2',
             price=20.0,
+            stock=20,
             category_id=2
         )
         product2.category = Categories(

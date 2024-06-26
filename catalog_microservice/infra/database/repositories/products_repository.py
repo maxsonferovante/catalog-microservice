@@ -14,7 +14,7 @@ from catalog_microservice.infra.database.errors.types.database_error import Data
 class ProductRepository(ProductRepositoryInterface):
     
     @classmethod
-    def insert_product(cls, name: str, description: str, price: float, category_id: str) -> str:
+    def insert_product(cls, name: str, description: str, price: float, stock:int, category_id: str) -> str:
         with DBConnectionHandler() as db_connection:
             try:
                 

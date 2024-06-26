@@ -15,6 +15,7 @@ class Products(Base):
       name = Column(String(255))
       description = Column(String(255))
       price = Column(Numeric(10, 2))
+      stock = Column(Integer)
       
       category_id: Mapped[str] = mapped_column(ForeignKey('categories.id'))
 
