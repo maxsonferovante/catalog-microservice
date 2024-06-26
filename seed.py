@@ -43,6 +43,7 @@ class SeedCatalog:
                     name = self.__faker.ecommerce_name(),
                     description = self.__faker.catch_phrase(),
                     price = self.__faker.random_number(2),
+                    stock = self.__faker.random_number(2),
                     category_id = self.__faker.random_element(self.__categories).id,
                     created_at = datetime.now(),
                     updated_at = datetime.now()
