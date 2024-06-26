@@ -40,6 +40,7 @@ def test_product_finder_controller_handle():
                     'name': 'product name',
                     'description': 'product description',
                     'price': 10.0,
+                    'stock': 10,
                     'category_id': 1
                 }
             ]

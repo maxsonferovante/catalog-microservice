@@ -17,6 +17,7 @@ class ProductRegisterController(ControllerInterface):
                 http_request.body.get('name'),
                 http_request.body.get('description'),
                 http_request.body.get('price'),
+                http_request.body.get('stock'),
                 http_request.body.get('category_id')
             )
             

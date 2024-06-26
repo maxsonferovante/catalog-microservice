@@ -14,6 +14,7 @@ def test_product_register_validator():
         'name': 'product test',
         'description': 'description test',
         'price': 10.0,
+        'stock': 10,
         'category_id': generate_uuid()
     }
     
@@ -26,6 +27,7 @@ def test_product_register_validator_empty_name():
         'name': '',
         'description': 'description test',
         'price': 10.0,
+        'stock': 10,
         'category_id': generate_uuid()
     }
     
@@ -41,6 +43,7 @@ def test_product_register_validator_empty_description():
         'name': 'product test',
         'description': '',
         'price': 10.0,
+        'stock': 10,
         'category_id': generate_uuid()
     }
     try:
@@ -55,6 +58,7 @@ def test_product_register_validator_empty_price():
         'name': 'product test',
         'description': 'description test',
         'price': '',
+        'stock': 10,
         'category_id': generate_uuid()
     }
     
@@ -69,6 +73,7 @@ def test_product_register_validator_empty_category_id():
         'name': 'product test',
         'description': 'description test',
         'price': 10.0,
+        'stock': 10,
         'category_id': ''
     }
     
@@ -76,4 +81,18 @@ def test_product_register_validator_empty_category_id():
         product_register_validator(request)
     except Exception as e:
          assert str(e) == "{'category_id': ['empty values not allowed']}"
-         
+
+def test_product_register_validator_empty_stock():
+    request = MockRequest()
+    request.json = {
+        'name': 'product test',
+        'description': 'description test',
+        'price': 10.0,
+        'stock': '',
+        'category_id': generate_uuid()
+    }
+    
+    try:
+        product_register_validator(request)
+    except Exception as e:
+         assert str(e) == "{'stock': ['must be of integer type']}"

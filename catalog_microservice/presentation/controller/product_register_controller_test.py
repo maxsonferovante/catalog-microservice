@@ -7,6 +7,7 @@ class HttpRequestMock:
         self.body = {
             'name': 'product name',
             'description': 'product description',
+            'stock': 10,
             'price': 10.0,
             'category_id': 1
         }
@@ -16,6 +17,7 @@ class HttpRequestMockError:
         self.body = {
             'name': 'product name',
             'description': 'product description',
+            'stock': 10,
             'price': 10.0
         }
         
@@ -48,6 +50,7 @@ def test_product_register_controller_handle():
                     'name': 'product name',
                     'description': 'product description',
                     'price': 10.0,
+                    'stock': 10,
                     'category_id': 1
                 }
             ]
@@ -59,6 +62,7 @@ def test_product_register_controller_handle():
             'name': 'product name',
             'description': 'product description',
             'price': 10.0,
+            'stock': 10,
             'category_id': 1
         }
     }

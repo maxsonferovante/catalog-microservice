@@ -36,12 +36,14 @@ def test_product_get_all_controller_handle():
                     'name': 'Product 1',
                     'description': 'Description 1',
                     'price': 10.0,
+                    'stock': 10,
                     'category_id': 1
                 },
                 {
                     'name': 'Product 2',
                     'description': 'Description 2',
                     'price': 20.0,
+                    'stock': 10,
                     'category_id': 2
                 }
             ]
