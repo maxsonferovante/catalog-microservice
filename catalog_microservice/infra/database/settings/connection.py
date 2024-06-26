@@ -1,12 +1,10 @@
 # This file contains the class that will handle the connection to the database
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.engine.base import Engine
 from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
-import os
-
 from catalog_microservice.infra.database.settings.base import Base
-load_dotenv()
+
 
 """
     A class that handles the database connection settings.
