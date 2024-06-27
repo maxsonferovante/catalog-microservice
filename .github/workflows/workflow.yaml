@@ -9,7 +9,7 @@ jobs:
   continuos-integration:
     name: Continuos Integration - Testing and Deploy
     runs-on: ubuntu-latest
-
+     environment: production-catalog-microservice
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
