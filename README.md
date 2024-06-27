@@ -16,6 +16,8 @@ Desenvolver um sistema de gerenciamento de e-commerce utilizando uma arquitetura
   - Pesquisa de produtos por nome, descrição e categoria.
   - Filtragem por preço, disponibilidade e outros atributos.
 
+[![Continuos Integration - Deploy](https://github.com/maxsonferovante/catalog-microservice/actions/workflows/workflow.yaml/badge.svg)](https://github.com/maxsonferovante/catalog-microservice/actions/workflows/workflow.yaml)
+
 #### 2. Serviço de Carrinho de Compras
 - **Gerenciamento de Carrinho:**
   - Adicionar produtos ao carrinho.
