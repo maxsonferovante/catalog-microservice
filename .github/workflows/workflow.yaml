@@ -1,4 +1,4 @@
-name: Continuos Integration - Testing
+name: Continuos Integration - Deploy
 on:
   pull_request:
   push:
@@ -7,6 +7,7 @@ on:
  
 jobs:
   continuos-integration:
+    name: Continuos Integration - Testing
     runs-on: ubuntu-latest
 
     steps:
@@ -31,4 +32,40 @@ jobs:
       - name: Run tests
         run: |
           poetry run pytest  
+
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.X'
       
+      - name: Install dependencies with poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+      
+      - name: Install libs for testing
+        run: |
+          poetry install
+
+      - name: Deploy to production
+        uses: easingthemes/ssh-deploy@main
+        env:
+          ARGS: "-rltgoDzvO --delete"
+          SOURCE: "./"
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.TARGET }}
+          
+ 
+ 
+    
