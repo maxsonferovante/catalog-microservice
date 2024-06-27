@@ -3,12 +3,12 @@ from sqlalchemy import text
 from catalog_microservice.infra.database.settings.connection import DBConnectionHandler
 from categories_repository import CategoryRepository
 
-db_connection_handler = DBConnectionHandler()
-connection = db_connection_handler.get_engine().connect()
-
 
 @pytest.mark.skip(reason="Sensive test")
 def test_insert_category():
+    db_connection_handler = DBConnectionHandler()
+    connection = db_connection_handler.get_engine().connect()
+
     mocked_first_category = {
         "name": "Category 1",
         "description": "Description of category 1"
@@ -48,6 +48,9 @@ def test_insert_category():
     
 @pytest.mark.skip(reason="Sensive test")
 def test_delete_category():
+    db_connection_handler = DBConnectionHandler()
+    connection = db_connection_handler.get_engine().connect()
+
     mocked_first_category = {
         "name": "Category 1",
         "description": "Description of category 1"

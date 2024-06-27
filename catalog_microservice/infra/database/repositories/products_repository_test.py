@@ -3,12 +3,12 @@ from sqlalchemy import text
 from catalog_microservice.infra.database.settings.connection import DBConnectionHandler
 from products_repository import ProductRepository
 
-db_connection_handler = DBConnectionHandler()
-connection = db_connection_handler.get_engine().connect()
-
 
 @pytest.mark.skip(reason="Sensive test")
 def test_insert_product():
+    db_connection_handler = DBConnectionHandler()
+    connection = db_connection_handler.get_engine().connect()
+
     mocked_first_product = {
         "name": "Product 1",
         "description": "Description of product 1",
@@ -56,6 +56,9 @@ def test_insert_product():
    
 @pytest.mark.skip(reason="Sensive test")
 def test_select_product():
+    db_connection_handler = DBConnectionHandler()
+    connection = db_connection_handler.get_engine().connect()
+
     mocked_first_product = {
         "name": "Product 1",
         "description": "Description of product 1",
@@ -89,6 +92,9 @@ def test_select_product():
     
 @pytest.mark.skip(reason="Sensive test")
 def test_select_products():
+    db_connection_handler = DBConnectionHandler()
+    connection = db_connection_handler.get_engine().connect()
+
     products_repository = ProductRepository()
     products = products_repository.select_products()
     
