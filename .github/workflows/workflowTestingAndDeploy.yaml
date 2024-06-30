@@ -38,39 +38,25 @@ jobs:
       - name: Run tests unit - Backend Catalog Microservice
         run: |
           poetry run pytest   
-    
-      - name: Set up QEMU for arm64
-        run: |
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-        if: runner.os == 'Linux'
-
-      - name: Set up Docker for arm64
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: linux/arm64
-
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v3
-      
-      
-      - name: Configure AWS credentials
+               
+      - name: Configure AWS credentials to login to ECR
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       
-      - name: Login to Amazon ECR
+      - name: Login to Amazon ECR with Docker
         run: |
           aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image to Amazon ECR
         run: |
           docker buildx create --use
           docker buildx inspect --bootstrap
           docker buildx build --platform linux/arm64 -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_BACKEND_IMAGE:latest --push .
 
-      - name: Deploy to ECS
+      - name: Deploy to ECS Backend Catalog Microservice
         uses: imehedi/actions-awscli-v2@latest
         with:
           args: ecs update-service --cluster ${{ secrets.ECS_CLUSTER }} --service ${{ secrets.ECS_BACKEND_SERVICE }} --force-new-deployment
