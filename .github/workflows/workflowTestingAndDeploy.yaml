@@ -35,7 +35,7 @@ jobs:
         run: |
           poetry install
 
-      - name: Run tests
+      - name: Run tests unit - Backend Catalog Microservice
         run: |
           poetry run pytest   
     
