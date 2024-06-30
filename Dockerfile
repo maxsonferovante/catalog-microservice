@@ -15,6 +15,6 @@ RUN poetry install --no-root --no-dev
 # Copia o restante do código fonte para o diretório de trabalho
 COPY . .
 
-EXPOSE 5000
+EXPOSE 8000
 # Define o comando padrão para executar a aplicação
 CMD ["poetry", "run", "python", "main.py"]
