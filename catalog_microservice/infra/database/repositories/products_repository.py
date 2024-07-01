@@ -8,7 +8,7 @@ from catalog_microservice.data.interfaces.product_repository_interface import Pr
 
 from catalog_microservice.domain.models.products import Products
 
-
+from catalog_microservice.infra.database.errors.types.product_not_found_error import ProductNotFoundError
 from catalog_microservice.infra.database.errors.types.category_not_found_error import CategoryNotFoundError
 from catalog_microservice.infra.database.errors.types.database_error import DatabaseError
 class ProductRepository(ProductRepositoryInterface):
@@ -22,7 +22,7 @@ class ProductRepository(ProductRepositoryInterface):
                 if not category_exists:
                     raise CategoryNotFoundError(category_id=category_id)
                                 
-                new_product = ProductsEntity(id= generate_uuid(), name=name, description=description, price=price, category_id=category_id)    
+                new_product = ProductsEntity(id= generate_uuid(), name=name, description=description, price=price, stock= stock, category_id=category_id)    
                 db_connection.session.add(new_product)
                 db_connection.session.commit()
                 return new_product.id
@@ -68,3 +68,20 @@ class ProductRepository(ProductRepositoryInterface):
             except Exception as e:
                 db_connection.session.rollback()
                 raise e
+    
+    @classmethod
+    def update_stock(cls, product_id: str, stock: int):
+        with DBConnectionHandler() as db_connection:
+            try:
+                product = db_connection.session.query(ProductsEntity).filter(ProductsEntity.id == product_id).first()
+                if not product:
+                    raise ProductNotFoundError(product_id=product_id)
+                product.stock = stock
+                db_connection.session.commit()
+            except ProductNotFoundError as e:
+                db_connection.session.rollback()
+                raise e
+            except Exception as e:
+                db_connection.session.rollback()
+                raise DatabaseError('An unexpected error occurred: {}'.format(e))
+            

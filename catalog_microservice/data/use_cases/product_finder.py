@@ -26,7 +26,6 @@ class ProductFinder(ProductFinderInterface):
     def __search_product(self, product_id: str) -> List[Products]:
         
         products = self.product_repository.select_product(product_id)                  
-        print (products)
         if products == []: raise HttpNotFoundError("Product not found")
         
         return products

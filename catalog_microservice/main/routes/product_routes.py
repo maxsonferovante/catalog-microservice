@@ -49,3 +49,6 @@ def get_all_products():
         http_response = handle_errors(error)
     
     return jsonify(http_response.body), http_response.status_code
+
+
+
