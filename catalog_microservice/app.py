@@ -12,7 +12,7 @@ class FlaskApp(BaseApplication):
                   if key in self.cfg.settings and value is not None}
         for key, value in config.items():
             self.cfg.set(key.lower(), value)
-            
+                
             
     def load(self):
         return self.application
