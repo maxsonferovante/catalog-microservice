@@ -6,6 +6,9 @@ Desenvolver um sistema de gerenciamento de e-commerce utilizando uma arquitetura
 ### Requisitos Funcionais
 
 #### 1. Serviço de Catálogo
+
+[![Continuos Integration -Testing, Build and Deploy Backend Catalog Microservice to AWS ECS](https://github.com/maxsonferovante/catalog-microservice/actions/workflows/workflowTestingAndDeploy.yaml/badge.svg)](https://github.com/maxsonferovante/catalog-microservice/actions/workflows/workflowTestingAndDeploy.yaml)
+
 - **Gerenciamento de Produtos:**
   - CRUD (Create, Read, Update, Delete) de produtos.
   - Atributos do produto: nome, descrição, preço, estoque, imagens, categorias, etc.
@@ -15,8 +18,6 @@ Desenvolver um sistema de gerenciamento de e-commerce utilizando uma arquitetura
 - **Busca e Filtragem:**
   - Pesquisa de produtos por nome, descrição e categoria.
   - Filtragem por preço, disponibilidade e outros atributos.
-
-[![Continuos Integration -Testing, Build and Deploy Backend Catalog Microservice to AWS ECS](https://github.com/maxsonferovante/catalog-microservice/actions/workflows/workflowTestingAndDeploy.yaml/badge.svg)](https://github.com/maxsonferovante/catalog-microservice/actions/workflows/workflowTestingAndDeploy.yaml)
 
 #### 2. Serviço de Carrinho de Compras
 - **Gerenciamento de Carrinho:**
