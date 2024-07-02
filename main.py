@@ -13,13 +13,15 @@ def main():
     }
     print (options)
     
-    with concurrent.futures.ProcessPoolExecutor() as executor:
+    FlaskApp( app=app, options=options).run()
         
-        future_server_message = executor.submit(ServerMessaging().start_message_consumers)
+    # with concurrent.futures.ProcessPoolExecutor() as executor:
         
-        future_server_flask = executor.submit(FlaskApp( app=app, options=options).run())
+    #     future_server_message = executor.submit(ServerMessaging().start_message_consumers)
         
-        concurrent.futures.wait([future_server_message, future_server_flask])   
+    #     future_server_flask = executor.submit(FlaskApp( app=app, options=options).run())
+        
+    #     concurrent.futures.wait([future_server_message, future_server_flask])   
 
 if __name__ == '__main__':
     main()
