@@ -1,30 +1,29 @@
 import os
-import concurrent.futures
 from dotenv import load_dotenv
+from threading import Thread
 from catalog_microservice.app import FlaskApp
 from catalog_microservice.main.server.server import app
-from catalog_microservice.main.server.server_messaging import ServerMessaging
+from catalog_microservice.main.server.server_messaging import server_messaging
 
-def main():
+if __name__ == '__main__':
     load_dotenv()  
     options = {
         'bind': os.environ['BIND_HOST_PORT'],
-        'workers': os.environ['NUM_WORKERS']
+        'workers': os.environ['NUM_WORKERS'],
     }
     print (options)
     
-    FlaskApp( app=app, options=options).run()
-        
-    # with concurrent.futures.ProcessPoolExecutor() as executor:
-        
-    #     future_server_message = executor.submit(ServerMessaging().start_message_consumers)
-        
-    #     future_server_flask = executor.submit(FlaskApp( app=app, options=options).run())
-        
-    #     concurrent.futures.wait([future_server_message, future_server_flask])   
-
-if __name__ == '__main__':
-    main()
+    try:
+        server_messaging.run()
+        FlaskApp( app=app, options=options).run()
+    except Exception as e:
+        print (e)
+        server_messaging.stop()
+        raise e
+    finally:
+        server_messaging.stop()
+        print ("Server stopped")
+    
     
     
     
