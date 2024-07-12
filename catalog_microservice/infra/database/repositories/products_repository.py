@@ -76,7 +76,7 @@ class ProductRepository(ProductRepositoryInterface):
                 product = db_connection.session.query(ProductsEntity).filter(ProductsEntity.id == product_id).first()
                 if not product:
                     raise ProductNotFoundError(product_id=product_id)
-                product.stock = stock
+                product.stock = product.stock - stock
                 db_connection.session.commit()
             except ProductNotFoundError as e:
                 db_connection.session.rollback()
