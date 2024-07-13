@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 
 services:
   api-ms:
@@ -7,11 +7,12 @@ services:
       dockerfile: Dockerfile
     container_name: catalog-api-ms
     ports:
-      - "5000:5000"
+      - "8000:8000"
     networks:
       - catalog_microservices_network
     depends_on:
       - database
+      - kafka
   database:
     image: mysql:lts
     container_name: database_calatog
@@ -33,11 +34,13 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-
+    networks:
+      - catalog_microservices_network
+    
   kafka:
     image: confluentinc/cp-server:7.3.0
     hostname: kafka
-    container_name: kafka
+    container_name: kafka_server_microservices
     depends_on:
       - zookeeper
     ports:
@@ -56,6 +59,8 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       CONFLUENT_METRICS_ENABLE: 'false'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+    networks:
+      - catalog_microservices_network
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:7.3.0
@@ -72,6 +77,9 @@ services:
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
+    networks:
+      - catalog_microservices_network
+    
 
 
 networks:
