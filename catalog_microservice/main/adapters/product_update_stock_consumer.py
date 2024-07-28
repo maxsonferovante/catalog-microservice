@@ -27,10 +27,9 @@ class ProductUpdateStockConsumer(AdapterConsumerInterface):
                         self.repository.send_message(
                             topic= Topics.PRODUCT_STOCK_UPDATED.value,
                             key= message.key,
-                            value= json.dumps(result))
-                        
-                        print (result)                        
-                        
+                            value= json.dumps(result))                        
+                    else:
+                        print ("No message to process in topic: ", topic)                        
                 except Exception as e:
                     print (e)
         except KeyboardInterrupt:
