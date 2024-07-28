@@ -1,4 +1,6 @@
+import socket
 import os
+import uuid
 from dotenv import load_dotenv
 from enum import Enum
 from confluent_kafka import Consumer, Producer
@@ -19,13 +21,14 @@ class MessageBrokerConnectionHandler:
             os.environ["MESSAGE_BROKER_HOST"],
             os.environ["MESSAGE_BROKER_PORT"]
         )
-        self.topic = os.environ["MESSAGE_BROKER_TOPIC"]    
+        self.topic = os.environ["MESSAGE_BROKER_TOPIC"] + str(uuid.uuid4())
         self.broker = self.__create_broker(type)
 
     def __create_broker(self, type: MessageBrokerConnectionType):
         try:
             if type == MessageBrokerConnectionType.PRODUCER:
-                return Producer({"bootstrap.servers": self.__connection_string})
+                print (self.__connection_string, socket.gethostname())
+                return Producer({"bootstrap.servers": self.__connection_string, "client.id": socket.gethostname()})
             elif type == MessageBrokerConnectionType.CONSUMER:
                 return Consumer({
                     "bootstrap.servers": self.__connection_string,

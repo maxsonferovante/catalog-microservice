@@ -13,9 +13,9 @@ load_dotenv()
 
 def callback_error(err, msg):
     if err is not None:
-        print ("Failed to deliver message: {} - {}".format(msg.value(), err.str()))
-    else: 
-        print ("Message produced: {}".format(msg.str()))
+        print("Failed to deliver message: %s: %s" % (str(msg), str(err)))
+    else:
+        print("Message produced: %s" % (str(msg.value())))
         
 class KafkaRepository(KafkaRepositoryInterface):
     
@@ -29,8 +29,8 @@ class KafkaRepository(KafkaRepositoryInterface):
     def __create_topics(self):
         try:
             admin = AdminClient({"bootstrap.servers": self.__connection_string})    
-            topic_product_update_stock = NewTopic(Topics.PRODUCT_UPDATE_STOCK.value, num_partitions=1, replication_factor=1)
-            topic_product_stock_updated = NewTopic(Topics.PRODUCT_STOCK_UPDATED.value, num_partitions=1, replication_factor=1)
+            topic_product_update_stock = NewTopic(Topics.PRODUCT_UPDATE_STOCK.value)
+            topic_product_stock_updated = NewTopic(Topics.PRODUCT_STOCK_UPDATED.value)
             
             admin.create_topics([topic_product_update_stock, topic_product_stock_updated])
         except KafkaException as e:
@@ -46,9 +46,11 @@ class KafkaRepository(KafkaRepositoryInterface):
                 connection_handler.get_broker().produce(
                     topic=topic,
                     key=key,
-                    value=value
+                    value=value,
+                    callback=callback_error                    
                 )
-                connection_handler.get_broker().flush()        
+                connection_handler.get_broker().poll(1)
+                      
             except KafkaException as e:
                 raise KafkaConnectionError(f"Error sending message to Kafka: {e}")
             except Exception as e:
