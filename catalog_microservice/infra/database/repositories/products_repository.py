@@ -38,16 +38,16 @@ class ProductRepository(ProductRepositoryInterface):
                 raise DatabaseError('An unexpected error occurred: {}'.format(e))
         
     @classmethod
-    def select_product(cls,  product_id: str) -> List[Products]:
+    def select_product(cls,  product_id: str) -> Products:
         with DBConnectionHandler() as db_connection:
             try:
-                products = (
+                product = (
                     db_connection.session
                     .query(ProductsEntity)
                     .filter(ProductsEntity.id == product_id)
-                    .all()
+                    .first()
                 )
-                return products
+                return product
             except Exception as e:
                 db_connection.session.rollback()
                 raise e
@@ -76,7 +76,7 @@ class ProductRepository(ProductRepositoryInterface):
                 product = db_connection.session.query(ProductsEntity).filter(ProductsEntity.id == product_id).first()
                 if not product:
                     raise ProductNotFoundError(product_id=product_id)
-                product.stock = product.stock - stock
+                product.stock = stock
                 db_connection.session.commit()
             except ProductNotFoundError as e:
                 db_connection.session.rollback()

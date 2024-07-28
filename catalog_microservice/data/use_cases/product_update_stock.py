@@ -27,11 +27,19 @@ class ProductUpdateStock(ProductUpdateStockInterface):
     def __update_stock(self, product_id, stock):
         try:
             product = self.product_repository.select_product(product_id)
+                            
+            if not product:
+                raise ProductNotFoundError(product_id)
             
-            if product.stock - stock < 0:
-                raise ValueError("Stock cannot be negative for product with id {}".format(product_id))
+            if product.stock == 0:
+                self.product_repository.update_stock(product_id, stock)
             
-            self.product_repository.update_stock(product_id, stock)
+            new_stock = product.stock - stock
+            if new_stock < 0:
+                raise ValueError("Stock of product with id {} cannot be negative.".format(product_id))
+            
+            self.product_repository.update_stock(product_id, new_stock)
+            
         except ProductNotFoundError as e:
             raise HttpNotFoundError(str(e))
         except DatabaseError as e:
