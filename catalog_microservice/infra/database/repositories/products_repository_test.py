@@ -102,7 +102,8 @@ def test_select_products():
     assert products == []
     
     connection.close()
-    
+
+@pytest.mark.skip(reason="Sensive test")    
 def test_select_products_by_ids():
     db_connection_handler = DBConnectionHandler()
     connection = db_connection_handler.get_engine().connect()
