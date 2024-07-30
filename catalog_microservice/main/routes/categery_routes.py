@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required
 
 from catalog_microservice.main.adapters.request_adapter import request_adapter
 
@@ -13,6 +14,7 @@ category_route_bp = Blueprint('category_routes', __name__)
 
 
 @category_route_bp.route('/categories/register', methods=['POST'])
+@jwt_required(fresh=True)
 def register_category():
     
     http_response = None

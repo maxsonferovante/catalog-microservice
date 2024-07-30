@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required
 
 from catalog_microservice.main.adapters.request_adapter import request_adapter
 
@@ -17,6 +18,7 @@ product_route_bp = Blueprint('product_routes', __name__)
 
 
 @product_route_bp.route('/products/finder', methods=['GET'])
+@jwt_required(fresh=True)
 def finder_product():
     http_response = None
     
@@ -29,6 +31,7 @@ def finder_product():
     return jsonify(http_response.body), http_response.status_code
 
 @product_route_bp.route('/products/register', methods=['POST'])
+@jwt_required(fresh=True)
 def register_product():
     
     http_response = None
@@ -42,6 +45,7 @@ def register_product():
 
 
 @product_route_bp.route('/products/all', methods=['GET'])
+@jwt_required(fresh=True)
 def get_all_products():
     http_response = None
     
@@ -54,10 +58,10 @@ def get_all_products():
 
 
 @product_route_bp.route('/products/stock', methods=['POST'])
+@jwt_required(fresh=True)
 def get_stock():
-    http_response = None
-    
-    try:
+    http_response = None    
+    try:        
         products_get_stock_validator(request=request)
         http_response = request_adapter(request=request, controller=product_get_stock_composer())
     except Exception as error:

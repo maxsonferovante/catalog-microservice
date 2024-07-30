@@ -14,13 +14,14 @@ from catalog_microservice.infra.utils.generate_uuid import generate_uuid
 
 app = Flask(__name__)
 
+app.config['JWT_TOKEN_LOCATION'] = ['headers']
 app.config['JWT_SECRET_KEY'] =  os.environ.get('JWT_SECRET_KEY', generate_uuid())
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
 
 jwt = JWTManager(app)
 
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.register_blueprint(authentication_bp)
 app.register_blueprint(home_bp)
