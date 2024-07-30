@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-
+from http import HTTPStatus
 """ 
 criar uma rota metodo get para apresentar a api 
 """
@@ -12,5 +12,5 @@ def home():
         {
             'message': 'API Catalog Microservice',
             'author': 'Maxson Almeida',
-            'version': '0.1.0',
-        }), 200
+            'version': '0.1.1',
+        }), HTTPStatus.OK
