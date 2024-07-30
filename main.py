@@ -8,7 +8,6 @@ from catalog_microservice.main.server.server_messaging import server_messaging
 if __name__ == '__main__':
     load_dotenv()  
     options = {
-        'bind': os.environ['BIND_HOST_PORT'],
         'workers': os.environ['NUM_WORKERS'],
     }
     print (options)

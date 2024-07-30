@@ -19,3 +19,7 @@ class ProductRepositoryInterface(ABC):
     @abstractmethod
     def update_stock(self, product_id: str, stock: int):
         raise NotImplementedError
+    
+    @abstractmethod
+    def select_products_by_ids(self, products_id: List[str]) -> List[Products]:
+        raise NotImplementedError

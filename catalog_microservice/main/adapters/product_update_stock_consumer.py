@@ -28,8 +28,8 @@ class ProductUpdateStockConsumer(AdapterConsumerInterface):
                             topic= Topics.PRODUCT_STOCK_UPDATED.value,
                             key= message.key,
                             value= json.dumps(result))                        
-                    else:
-                        print ("No message to process in topic: ", topic)                        
+                    else: 
+                        pass                            
                 except Exception as e:
                     print (e)
         except KeyboardInterrupt:

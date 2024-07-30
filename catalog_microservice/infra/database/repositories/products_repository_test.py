@@ -102,3 +102,25 @@ def test_select_products():
     assert products == []
     
     connection.close()
+    
+def test_select_products_by_ids():
+    db_connection_handler = DBConnectionHandler()
+    connection = db_connection_handler.get_engine().connect()
+
+    products_id = [
+        '016003a6-eeae-531c-b5bf-b537fd6348db',
+        '0181680f-f5bf-5250-944d-2c3be9ae1082',
+        '021c2220-5f60-5f05-b9d3-624dd05d3ff1',
+        '04b01ac2-1200-5726-bb2e-d01cfab67159'
+    ]
+    
+    products_repository = ProductRepository()   
+    products = products_repository.select_products_by_ids(products_id)
+    
+    assert len(products) == products_id.__len__()
+    for product in products:
+        assert product.id in products_id
+        assert product.name is not None
+        assert product.stock is not None
+        assert product.updated_at is not None
+    connection.close()

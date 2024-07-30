@@ -65,3 +65,39 @@ class ProductRepositorySpy:
         return [
             product1,
             product2]
+        
+    def select_products_by_ids(self, products_ids: List[str]) -> List[Products]:
+        self.select_product_atributes['products_ids'] = products_ids
+        product1 = Products(
+            id=1,
+            name='Product 1',
+            description='Description 1',
+            price=10.0,
+            stock=10,
+            category_id=1,
+        )
+        product1.updated_at = '2021-07-01T00:00:00Z'
+        product1.category = Categories(
+             id=1,
+            name='Category 1',
+            description='Description 1'
+        )
+        
+        product2 = Products(
+            id=2,
+            name='Product 2',
+            description='Description 2',
+            price=20.0,
+            stock=20,
+            category_id=2
+        )
+        product2.updated_at = '2021-07-01T00:00:00Z'
+        product2.category = Categories(
+             id=2,
+            name='Category 2',
+            description='Description 2'
+        )
+        
+        return [
+            product1,
+            product2]

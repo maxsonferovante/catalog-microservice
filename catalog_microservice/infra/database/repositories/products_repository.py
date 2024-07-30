@@ -11,6 +11,7 @@ from catalog_microservice.domain.models.products import Products
 from catalog_microservice.infra.database.errors.types.product_not_found_error import ProductNotFoundError
 from catalog_microservice.infra.database.errors.types.category_not_found_error import CategoryNotFoundError
 from catalog_microservice.infra.database.errors.types.database_error import DatabaseError
+
 class ProductRepository(ProductRepositoryInterface):
     
     @classmethod
@@ -84,4 +85,18 @@ class ProductRepository(ProductRepositoryInterface):
             except Exception as e:
                 db_connection.session.rollback()
                 raise DatabaseError('An unexpected error occurred: {}'.format(e))
-            
+    
+    @classmethod
+    def select_products_by_ids(cls, products_id: List[str]) -> List[Products]:
+        with DBConnectionHandler() as db_connection:
+            try:
+                products = (
+                    db_connection.session                    
+                    .query(ProductsEntity.id, ProductsEntity.name, ProductsEntity.stock, ProductsEntity.updated_at)
+                    .filter(ProductsEntity.id.in_(products_id))
+                    .all()
+                )
+                return products
+            except Exception as e:
+                db_connection.session.rollback()
+                raise e            
