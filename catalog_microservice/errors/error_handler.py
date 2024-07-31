@@ -17,7 +17,7 @@ def handle_errors(error: Exception) -> HttpResponse:
     return HttpResponse(status_code=HTTPStatus.INTERNAL_SERVER_ERROR, body= {
             'errors': [
                 {
-                    'title': 'Server Error',
+                    'title': 'Internal Server Error',
                     'detail': str(error)
                 }
             ]
