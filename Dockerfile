@@ -11,7 +11,7 @@ COPY pyproject.toml poetry.lock /app/
 RUN pip install poetry
 
 # Instala as dependências do projeto usando o Poetry
-RUN poetry install --no-root --no-dev
+RUN poetry install --no-root --no-cache
 # Copia o restante do código fonte para o diretório de trabalho
 
 # ENV DB_ENGINE='mysql+pymysql'
