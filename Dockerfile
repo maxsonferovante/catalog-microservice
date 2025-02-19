@@ -14,24 +14,24 @@ RUN pip install poetry
 RUN poetry install --no-root --no-dev
 # Copia o restante do código fonte para o diretório de trabalho
 
-ENV DB_ENGINE='mysql+pymysql'
-ENV DB_NAME='catalog'
-ENV DB_USER='root'
-ENV DB_PASSWORD='root'
-ENV DB_HOST='localhost'
-ENV DB_PORT='3306'
-ENV DB_SCHEMA='catalog'
+# ENV DB_ENGINE='mysql+pymysql'
+# ENV DB_NAME='catalog'
+# ENV DB_USER='root'
+# ENV DB_PASSWORD='root'
+# ENV DB_HOST='localhost'
+# ENV DB_PORT='3306'
+# ENV DB_SCHEMA='catalog'
 
-ENV BIND_HOST_PORT='0.0.0.0:8000'
-ENV NUM_WORKERS=2
+# ENV BIND_HOST_PORT='0.0.0.0:8000'
+# ENV NUM_WORKERS=2
 
 
-ENV MESSAGE_BROKER_HOST = 'localhost'
-ENV MESSAGE_BROKER_PORT = '9092'
-ENV MESSAGE_BROKER_TOPIC = 'catalog'
+# ENV MESSAGE_BROKER_HOST = 'localhost'
+# ENV MESSAGE_BROKER_PORT = '9092'
+# ENV MESSAGE_BROKER_TOPIC = 'catalog'
 
 COPY . .
 
 EXPOSE 8000
 # Define o comando padrão para executar a aplicação
-CMD ["poetry", "run", "python", "main.py"]
+# CMD ["poetry", "run", "python", "main.py"]
